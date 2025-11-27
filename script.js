@@ -38,37 +38,62 @@ function updateHat() {
 }
 
 
-// === 목도리 색 ===
-// CSS 변수 --scarf-color 에 색을 넣어서 패턴이랑 같이 바뀌게 함
-function updateScarfColor() {
+// === 목도리 스타일 적용 (색 + 패턴) ===
+function applyScarfStyle() {
   const color = scarfColorInput.value;
+  const pattern = scarfPattern.value;
+
   const main = scarf.querySelector(".scarf-main");
   const tails = scarf.querySelectorAll(".scarf-tail");
 
-  main.style.setProperty("--scarf-color", color);
-  tails.forEach((el) => {
-    el.style.setProperty("--scarf-color", color);
+  const allParts = [main, ...tails];
+
+  // 1) 기본: 바탕 색
+  allParts.forEach(el => {
+    el.style.backgroundColor = color;
+    el.style.backgroundImage = "none";
+    el.style.backgroundSize = "";
+    el.style.backgroundRepeat = "";
+    el.style.backgroundPosition = "";
   });
+
+  // 2) 패턴 적용
+  if (pattern === "dot") {
+    // 큰 흰색 동글동글 도트
+    const bgImage = "radial-gradient(circle, #ffffff 0 45%, transparent 45%)";
+    const bgSize = "12px 12px";
+
+    allParts.forEach(el => {
+      el.style.backgroundImage = bgImage;
+      el.style.backgroundSize = bgSize;
+      el.style.backgroundRepeat = "repeat";
+    });
+
+  } else if (pattern === "stripe") {
+    // 스트라이프: 색 → 흰색 → 색 → 흰색
+    const bgImage = `repeating-linear-gradient(
+      90deg,
+      transparent 0 10px,
+      #ffffff 10px 20px
+    )`;
+
+    allParts.forEach(el => {
+      el.style.backgroundImage = bgImage;
+      el.style.backgroundRepeat = "repeat";
+    });
+  }
 }
 
 
-// === 목도리 패턴 ===
+// === 색 변경 시 ===
+function updateScarfColor() {
+  applyScarfStyle();
+}
+
+
+// === 패턴 변경 시 ===
 function updateScarfPattern() {
-  const pattern = scarfPattern.value; // solid / dot / stripe
-  const main = scarf.querySelector(".scarf-main");
-  const tails = scarf.querySelectorAll(".scarf-tail");
-
-  // 기존 패턴 클래스 제거
-  main.classList.remove("solid", "dot", "stripe");
-  tails.forEach((t) => {
-    t.classList.remove("solid", "dot", "stripe");
-  });
-
-  // 선택한 패턴 클래스 추가
-  main.classList.add(pattern);
-  tails.forEach((t) => {
-    t.classList.add(pattern);
-  });
+  applyScarfStyle();
 }
 
 
@@ -105,9 +130,7 @@ function randomizeSnowman() {
     const b = 80 + Math.floor(Math.random() * 140);
     return (
       "#" +
-      [r, g, b]
-        .map((x) => x.toString(16).padStart(2, "0"))
-        .join("")
+      [r, g, b].map(x => x.toString(16).padStart(2, "0")).join("")
     );
   };
 
@@ -119,12 +142,7 @@ function randomizeSnowman() {
 
 // === 저장하기 (PNG) ===
 function saveSnowman() {
-  if (typeof html2canvas !== "function") {
-    alert("html2canvas 로딩에 실패했어요 😢");
-    return;
-  }
-
-  html2canvas(scene).then((canvas) => {
+  html2canvas(scene).then(canvas => {
     const link = document.createElement("a");
     link.download = "my-snowman.png";
     link.href = canvas.toDataURL("image/png");
@@ -136,9 +154,8 @@ function saveSnowman() {
 // === 전체 적용 ===
 function applyAll() {
   updateHat();
-  updateScarfColor();
-  updateScarfPattern();
   updateBackground();
+  applyScarfStyle();
 }
 
 
@@ -151,18 +168,15 @@ function createSnowflakes() {
     flake.style.top = -(Math.random() * 100) + "px";
     flake.style.animationDuration = 7 + Math.random() * 6 + "s";
     flake.style.opacity = 0.4 + Math.random() * 0.6;
-    flake.style.width = flake.style.height =
-      2 + Math.random() * 4 + "px";
+    flake.style.width = flake.style.height = 2 + Math.random() * 4 + "px";
     scene.appendChild(flake);
   }
 }
 
 
-// === 이벤트 리스너 등록 ===
+// === 이벤트 등록 ===
 hatSelect.addEventListener("change", updateHat);
-scarfColorInput.addEventListener("input", () => {
-  updateScarfColor();
-});
+scarfColorInput.addEventListener("input", updateScarfColor);
 bgSelect.addEventListener("change", updateBackground);
 randomBtn.addEventListener("click", randomizeSnowman);
 saveBtn.addEventListener("click", saveSnowman);

@@ -14,9 +14,6 @@
       <p class="subtitle">모양 · 모자 · 목도리 색을 고르고, 마음에 들면 저장해 보세요!</p>
 
       <div class="controls">
-
-        <!-- (삭제됨) 눈사람 크기 선택 -->
-
         <div class="control-group">
           <span class="control-label">1. 모자 스타일</span>
           <select id="hatSelect">
@@ -35,14 +32,13 @@
         </div>
 
         <div class="control-group">
-            <span class="control-label">3. 목도리 패턴</span>
-            <select id="scarfPattern">
-              <option value="solid" selected>기본</option>
-              <option value="dot">땡땡이</option>
-              <option value="stripe">스트라이프</option>
-            </select>
-          </div>
-          
+          <span class="control-label">3. 목도리 패턴</span>
+          <select id="scarfPattern">
+            <option value="solid" selected>기본</option>
+            <option value="dot">땡땡이</option>
+            <option value="stripe">스트라이프</option>
+          </select>
+        </div>
 
         <div class="control-group">
           <span class="control-label">4. 배경 느낌</span>
@@ -56,7 +52,6 @@
         <div class="control-group">
           <button id="randomBtn">랜덤 눈사람 뽑기 🎲</button>
         </div>
-
       </div>
     </div>
 
@@ -92,9 +87,9 @@
 
             <!-- 목도리 -->
             <div class="scarf" id="scarf">
-              <div class="scarf-main"></div>
-              <div class="scarf-tail"></div>
-              <div class="scarf-tail secondary"></div>
+              <div class="scarf-main solid"></div>
+              <div class="scarf-tail solid"></div>
+              <div class="scarf-tail secondary solid"></div>
             </div>
           </div>
 
@@ -111,7 +106,6 @@
 
           <div class="snow-ball bottom"></div>
         </div>
-
       </div>
 
       <div class="preview-footer">
@@ -120,6 +114,7 @@
     </div>
   </div>
 
+  <!-- 저장용 캡처 라이브러리 -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>

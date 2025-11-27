@@ -107,11 +107,6 @@
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   }
   
-  .hint {
-    font-size: 0.8rem;
-    opacity: 0.85;
-  }
-  
   /* 미리보기 영역 */
   .preview-wrapper {
     background: radial-gradient(circle at top, rgba(255, 255, 255, 0.28), transparent 55%);
@@ -137,13 +132,6 @@
     font-weight: 600;
   }
   
-  .tag {
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-  }
-  
   .scene {
     border-radius: 16px;
     background: linear-gradient(to top, #e0f7fa 0%, #f5fbff 50%, #e3f2fd 100%);
@@ -152,15 +140,13 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    
-    /* 🔥 추가/수정 */
-    width: 100%;   
-    max-width: 700px;    /* 배경 크기 키움 */
-    aspect-ratio: 1 / 1; /* 정사각형으로 고정 */
-    margin: 0 auto;      /* 가운데 정렬 */
-    padding-bottom: 40px; /* 눈사람 공간 확보 */
-  }
   
+    width: 100%;
+    max-width: 700px;
+    aspect-ratio: 1 / 1; /* 정사각형 */
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
   
   .ground {
     position: absolute;
@@ -203,16 +189,8 @@
     z-index: 2;
   }
   
-  .snowman.small {
-    transform: scale(0.8);
-  }
-  
   .snowman.medium {
     transform: scale(1);
-  }
-  
-  .snowman.large {
-    transform: scale(1.2);
   }
   
   .snow-ball {
@@ -226,20 +204,20 @@
   .snow-ball.bottom {
     width: 160px;
     height: 160px;
-    margin-top: -25px; 
+    margin-top: -25px;
   }
   
   .snow-ball.middle {
     width: 120px;
     height: 120px;
-    margin-top: -5px; 
+    margin-top: -5px;
     z-index: 1;
   }
   
   .snow-ball.head {
     width: 90px;
     height: 90px;
-    margin-top: 0px; 
+    margin-top: 0px;
     z-index: 2;
   }
   
@@ -428,7 +406,7 @@
     right: 0;
   }
   
-  /* 새 모자: 베레모 */
+  /* 베레모 */
   .hat-beret {
     width: 60px;
     height: 22px;
@@ -448,7 +426,7 @@
     background: #5d5bd6;
   }
   
-  /* 새 모자: 산타 모자 */
+  /* 산타 모자 */
   .hat-santa {
     width: 70px;
     height: 34px;
@@ -479,92 +457,41 @@
     background: #ffffff;
   }
   
-  /* 발자국 느낌 장식 */
-  .footprints {
-    position: absolute;
-    bottom: 18px;
-    right: 40px;
-    display: flex;
-    gap: 10px;
-    opacity: 0.5;
-    /* 요청: 화면에서 숨기기 */
-    display: none;
-  }
-  
-  .foot {
-    width: 18px;
-    height: 10px;
-    border-radius: 999px;
-    border: 2px solid rgba(0, 0, 0, 0.12);
-  }
-  
   .preview-footer {
     margin-top: 8px;
     font-size: 0.85rem;
     opacity: 0.9;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
+    justify-content: flex-end;
   }
   
   /* 목도리 */
-  .scarf {
-    position: absolute;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .scarf-main {
-    width: 85px;
-    height: 18px;
-    border-radius: 999px;
-  }
-  
-  .scarf-tail {
-    position: absolute;
-    top: 16px;
-    left: 10px;
-    width: 18px;
-    height: 40px;
-    border-radius: 999px;
-  }
-  
-  .scarf-tail.secondary {
-    left: 24px;
-    height: 32px;
-    opacity: 0.85;
-  }
-  
-  /* 🔥 여기부터 패턴 관련 전부 정리 */
-  
-  .scarf-main,
-  .scarf-tail {
-    --scarf-color: #ff5252;         /* 기본 색 */
-    background-color: var(--scarf-color);
-  }
-  
-  /* 기본(솔리드) */
-  .scarf-main.solid,
-  .scarf-tail.solid {
-    background-image: none;
-  }
-  
-  /* 땡땡이 패턴 */
-  .scarf-main.dot,
-  .scarf-tail.dot {
-    background-image: radial-gradient(var(--scarf-color) 15%, transparent 15%);
-    background-size: 12px 12px;
-  }
-  
-  /* 스트라이프 패턴 */
-  .scarf-main.stripe,
-  .scarf-tail.stripe {
-    background-image: repeating-linear-gradient(
-      90deg,
-      var(--scarf-color) 0 10px,
-      transparent 10px 20px
-    );
-  }
-  
+.scarf {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scarf-main {
+  width: 85px;
+  height: 18px;
+  border-radius: 999px;
+  background-color: var(--scarf-color, #ff5252);
+}
+
+.scarf-tail {
+  position: absolute;
+  top: 16px;
+  left: 10px;
+  width: 18px;
+  height: 40px;
+  border-radius: 999px;
+  background-color: var(--scarf-color, #ff5252);
+}
+
+.scarf-tail.secondary {
+  left: 24px;
+  height: 32px;
+  opacity: 0.85;
+}
