@@ -496,23 +496,30 @@
   opacity: 0.85;
 }
 
-/* 📱 모바일(세로)에서 눈사람이 정사각형 안에 딱 들어가게 조정 */
+/* 📱 모바일 세로 모드에서 작은 눈사람이 정사각형 안에 완전히 들어가도록 */
 @media screen and (max-width: 600px) and (orientation: portrait) {
 
-  /* 정사각형 유지 + 조금 더 작게 */
+  /* 정사각형 자체도 더 작게 */
   .scene {
-    width: 80vw;        /* 화면 너비의 80% */
-    height: 80vw;       /* 정사각형 유지 */
+    width: 70vw;        /* 화면 너비의 70% */
+    height: 70vw;       /* 정사각형 유지 */
     max-width: none;
     aspect-ratio: 1 / 1;
-    padding-bottom: 20px;  /* 너무 띄워지지 않게 살짝 줄임 */
+    padding-bottom: 10px;
     margin: 0 auto;
   }
 
-  /* 눈사람 전체 축소 (머리~발끝 다 들어가도록) */
+  /* 눈사람 아주 귀엽게 축소 */
   .snowman {
-    transform: scale(0.60);        /* 더 많이 줄임 */
+    transform: scale(0.45);      /* 🔥 훨씬 작게! */
     transform-origin: bottom center;
   }
+
+  /* 눈밭도 더 얕게 */
+  .ground {
+    height: 50px;
+    bottom: -5px;
+  }
 }
+
 
