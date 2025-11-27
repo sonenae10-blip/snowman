@@ -497,7 +497,7 @@
 }
 
 /* 🔽 모바일에서 눈사람이 안 잘리도록 조정 */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .scene {
     /* 정사각형보다 세로를 더 길게 → 전체가 다 나오도록 */
     aspect-ratio: 1 / 1;     /* width : height = 1 : 1 */
@@ -505,7 +505,7 @@
   }
 
   .snowman {
-    transform: scale(0.8);  /* 살짝 줄여서 화면 안에 쏙 들어가게 */
+    transform: scale(0.4);  /* 살짝 줄여서 화면 안에 쏙 들어가게 */
     transform-origin: bottom center;
   }
 }
