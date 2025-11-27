@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나만의 눈사람 만들기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- 왼쪽: 컨트롤 패널 -->
+    <div>
+      <h1>나만의 눈사람 만들기 ⛄</h1>
+      <p class="subtitle">모양 · 모자 · 목도리 색을 고르고, 마음에 들면 저장해 보세요!</p>
+
+      <div class="controls">
+
+        <!-- (삭제됨) 눈사람 크기 선택 -->
+
+        <div class="control-group">
+          <span class="control-label">1. 모자 스타일</span>
+          <select id="hatSelect">
+            <option value="none">모자 없음 (심플)</option>
+            <option value="classic">클래식 실린더 모자</option>
+            <option value="beanie">귀여운 비니</option>
+            <option value="ears">귀달이 모자</option>
+            <option value="beret">베레모</option>
+            <option value="santa">산타 모자</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">2. 목도리 색</span>
+          <input type="color" id="scarfColor" value="#ff5252" />
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">3. 배경 느낌</span>
+          <select id="bgSelect">
+            <option value="day" selected>맑은 낮</option>
+            <option value="sunset">노을 배경</option>
+            <option value="night">눈 내리는 밤</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <button id="randomBtn">랜덤 눈사람 뽑기 🎲</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 오른쪽: 눈사람 미리보기 -->
+    <div class="preview-wrapper">
+      <div class="preview-header">
+        <div class="preview-title">눈사람 프리뷰</div>
+      </div>
+
+      <div class="scene" id="scene">
+        <div class="ground"></div>
+
+        <!-- 눈사람 -->
+        <div class="snowman medium" id="snowman">
+          <div class="snow-ball head">
+            <div class="hat" id="hatArea"></div>
+
+            <!-- 얼굴 -->
+            <div class="eyes">
+              <div class="eye"></div>
+              <div class="eye"></div>
+            </div>
+
+            <div class="carrot-nose"></div>
+
+            <div class="mouth">
+              <div class="mouth-dot"></div>
+              <div class="mouth-dot"></div>
+              <div class="mouth-dot"></div>
+              <div class="mouth-dot"></div>
+              <div class="mouth-dot"></div>
+            </div>
+
+            <!-- 목도리 -->
+            <div class="scarf" id="scarf">
+              <div class="scarf-main"></div>
+              <div class="scarf-tail"></div>
+              <div class="scarf-tail secondary"></div>
+            </div>
+          </div>
+
+          <div class="snow-ball middle">
+            <div class="buttons">
+              <div class="button-dot"></div>
+              <div class="button-dot"></div>
+              <div class="button-dot"></div>
+            </div>
+
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+          </div>
+
+          <div class="snow-ball bottom"></div>
+        </div>
+
+      </div>
+
+      <div class="preview-footer">
+        <button id="saveBtn">저장하기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
