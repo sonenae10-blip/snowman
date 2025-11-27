@@ -479,6 +479,35 @@
     background: #ffffff;
   }
   
+  /* 발자국 느낌 장식 */
+  .footprints {
+    position: absolute;
+    bottom: 18px;
+    right: 40px;
+    display: flex;
+    gap: 10px;
+    opacity: 0.5;
+    /* 요청: 화면에서 숨기기 */
+    display: none;
+  }
+  
+  .foot {
+    width: 18px;
+    height: 10px;
+    border-radius: 999px;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+  }
+  
+  .preview-footer {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    opacity: 0.9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  
   /* 목도리 */
   .scarf {
     position: absolute;
@@ -508,32 +537,34 @@
     opacity: 0.85;
   }
   
-  /* 발자국 느낌 장식 */
-  .footprints {
-    position: absolute;
-    bottom: 18px;
-    right: 40px;
-    display: flex;
-    gap: 10px;
-    opacity: 0.5;
-    /* 요청: 화면에서 숨기기 */
-    display: none;
+  /* 🔥 여기부터 패턴 관련 전부 정리 */
+  
+  .scarf-main,
+  .scarf-tail {
+    --scarf-color: #ff5252;         /* 기본 색 */
+    background-color: var(--scarf-color);
   }
   
-  .foot {
-    width: 18px;
-    height: 10px;
-    border-radius: 999px;
-    border: 2px solid rgba(0, 0, 0, 0.12);
+  /* 기본(솔리드) */
+  .scarf-main.solid,
+  .scarf-tail.solid {
+    background-image: none;
   }
   
-  .preview-footer {
-    margin-top: 8px;
-    font-size: 0.85rem;
-    opacity: 0.9;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
+  /* 땡땡이 패턴 */
+  .scarf-main.dot,
+  .scarf-tail.dot {
+    background-image: radial-gradient(var(--scarf-color) 15%, transparent 15%);
+    background-size: 12px 12px;
+  }
+  
+  /* 스트라이프 패턴 */
+  .scarf-main.stripe,
+  .scarf-tail.stripe {
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--scarf-color) 0 10px,
+      transparent 10px 20px
+    );
   }
   
