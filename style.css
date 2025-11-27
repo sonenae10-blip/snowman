@@ -142,7 +142,7 @@
     justify-content: center;
   
     width: 100%;
-    max-width: 700px;
+    max-width: 500px;
     aspect-ratio: 1 / 1; /* 정사각형 */
     margin: 0 auto;
     padding-bottom: 40px;
@@ -500,12 +500,12 @@
 @media (max-width: 600px) {
   .scene {
     /* 정사각형보다 세로를 더 길게 → 전체가 다 나오도록 */
-    aspect-ratio: 3 / 4;     /* width : height = 3 : 4 */
+    aspect-ratio: 1 / 1;     /* width : height = 1 : 1 */
     padding-bottom: 30px;    /* 너무 위로 붙지 않게 살짝 내려줌 */
   }
 
   .snowman {
-    transform: scale(0.85);  /* 살짝 줄여서 화면 안에 쏙 들어가게 */
+    transform: scale(0.8);  /* 살짝 줄여서 화면 안에 쏙 들어가게 */
     transform-origin: bottom center;
   }
 }
