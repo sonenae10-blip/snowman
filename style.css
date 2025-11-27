@@ -496,16 +496,20 @@
   opacity: 0.85;
 }
 
-/* 🔽 모바일에서 눈사람이 안 잘리도록 조정 */
-@media (max-width: 400px) {
+/* 🔽 모바일 화면에서 눈사람이 잘리지 않도록 전체 축소 */
+@media (max-width: 600px) {
+
+  /* 정사각형 배경 크기 줄이기 */
   .scene {
-    /* 정사각형보다 세로를 더 길게 → 전체가 다 나오도록 */
-    aspect-ratio: 1 / 1;     /* width : height = 1 : 1 */
-    padding-bottom: 30px;    /* 너무 위로 붙지 않게 살짝 내려줌 */
+    max-width: 330px;      /* 모바일에 맞춘 정사각형 크기 */
+    aspect-ratio: 1 / 1;   /* 정사각형 유지 */
+    padding-bottom: 25px;  /* 눈사람이 ground에 안 붙도록 살짝 여유 */
+    margin: 0 auto;
   }
 
+  /* 눈사람 크기 축소 */
   .snowman {
-    transform: scale(0.4);  /* 살짝 줄여서 화면 안에 쏙 들어가게 */
+    transform: scale(0.80);     /* 적당히 줄여서 여유 있게 */
     transform-origin: bottom center;
   }
 }
