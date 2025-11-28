@@ -499,29 +499,30 @@
 /* 📱 모바일 세로 전용 최적화 */
 @media screen and (max-width: 600px) and (orientation: portrait) {
 
-  /* 정사각형을 화면에 정확히 가운데 + 꽉 맞게 */
+  /* 정사각형을 화면 너비에 맞게 꽉 채우기 */
   .scene {
-    width: 88vw;          /* 살짝 여유 있게 넓힘 */
-    height: 88vw;         /* 강제 정사각형 */
+    width: 100%;
+    height: auto;
     max-width: none;
-    max-height: none;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
 
-    padding: 0;           /* 위쪽 여백 사라지게 */
-    margin: 0 auto;       /* 정확히 가운데 */
+    /* 데스크탑이랑 느낌 맞추기 위해 약간만 여백 */
+    padding-bottom: 32px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
   }
 
-  /* 눈사람을 화면에 딱 맞게 축소 */
+  /* 눈사람은 데스크탑과 동일한 크기로 유지 */
   .snowman {
-    transform: scale(0.58);
+    transform: none;              /* scale(0.58) 제거 */
     transform-origin: bottom center;
   }
 
-  /* 눈밭(ground)은 조금만 보이게 */
+  /* 눈밭(ground) 살짝만 보이도록 조정 */
   .ground {
-    height: 55px;
-    bottom: -8px;
+    height: 80px;
+    bottom: -16px;
   }
 }
