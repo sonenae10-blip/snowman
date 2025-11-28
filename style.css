@@ -498,22 +498,29 @@
 
 /* 📱 모바일 세로 전용: 정사각형 안에 눈사람 딱 맞게 */
 @media screen and (max-width: 600px) and (orientation: portrait) {
-
+  
   .scene {
     width: 100%;
     aspect-ratio: 1 / 1;
     max-width: none;
     margin: 0 auto;
+    /* 눈사람이 바닥에 닿도록 padding-bottom 제거 */
     padding-bottom: 0;
-    
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-end; /* 눈사람을 아래쪽으로 정렬 */
   }
 
-  /* 👉 눈사람 크기를 더 줄여서 상하좌우 여백 확보 */
+  /* 👉 눈사람 크기를 키우고 (scale(0.8)) 위치를 조정하여 화면에 딱 맞게 수정 */
   .snowman {
-    transform: scale(0.63) translateY(10px);
+    /* 기존 scale(0.63)보다 키워 scale(0.8) 적용 */
+    /* 눈사람이 바닥(ground) 위에 잘 위치하도록 translateY(-10px) 적용 */
+    transform: scale(0.8) translateY(-10px); 
     transform-origin: bottom center;
+  }
+  
+  /* 눈사람이 바닥에 닿도록 ground 위치 조정 */
+  .ground {
+    bottom: 0px; 
   }
 }
