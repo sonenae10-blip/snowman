@@ -496,31 +496,32 @@
   opacity: 0.85;
 }
 
-/* 📱 모바일 세로 전용: 정사각형 안에 눈사람 딱 맞게 */
-@media screen and (max-width: 600px) and (orientation: portrait) {
-  
+/* 📱 모바일: 눈사람이 예쁘고 작게 보이도록 */
+@media screen and (max-width: 600px) {
+
+  /* 씬(프리뷰 영역)을 더 높게 — 정사각형 유지 X */
   .scene {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 360px;        /* 정사각형 대신 넉넉한 세로 높이 */
     max-width: none;
     margin: 0 auto;
-    /* 눈사람이 바닥에 닿도록 padding-bottom 제거 */
-    padding-bottom: 0;
+    padding: 0;
+
     display: flex;
     justify-content: center;
-    align-items: flex-end; /* 눈사람을 아래쪽으로 정렬 */
+    align-items: flex-end; 
+    overflow: hidden;      /* 넘치는 부분 깔끔하게 제거 */
   }
 
-  /* 👉 눈사람 크기를 키우고 (scale(0.8)) 위치를 조정하여 화면에 딱 맞게 수정 */
+  /* 눈사람 확실히 작게! */
   .snowman {
-    /* 기존 scale(0.63)보다 키워 scale(0.8) 적용 */
-    /* 눈사람이 바닥(ground) 위에 잘 위치하도록 translateY(-10px) 적용 */
-    transform: scale(0.8) translateY(-10px); 
+    transform: scale(0.55) translateY(15px);
     transform-origin: bottom center;
   }
-  
-  /* 눈사람이 바닥에 닿도록 ground 위치 조정 */
+
+  /* 눈밭 위치 조절 */
   .ground {
-    bottom: 0px; 
+    height: 75px;
+    bottom: -20px;
   }
 }
