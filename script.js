@@ -168,21 +168,20 @@ function randomizeSnowman() {
 }
 
 function saveSnowman() {
-  // 0) scene 원래 크기 저장
+  // === 0. scene 원래 크기 저장 ===
   const originalWidth = scene.style.width;
   const originalHeight = scene.style.height;
 
-  // 0-1) 캡처용 정사각형 강제 적용
+  // 캡처용 정사각형 강제 적용
   scene.style.width = "500px";
   scene.style.height = "500px";
 
-  // 1) 목도리 부분 요소들 찾기
+  // === 1. 목도리 요소 및 원래 스타일 저장 ===
   const main = scarf.querySelector(".scarf-main");
   const tails = scarf.querySelectorAll(".scarf-tail");
   const parts = [main, ...tails];
 
-  // 2) 원래 스타일 저장 (캡처 끝나고 복구용)
-  const originalStyles = parts.map(el => ({
+  const originalScarfStyles = parts.map(el => ({
     backgroundColor: el.style.backgroundColor,
     backgroundImage: el.style.backgroundImage,
     backgroundSize: el.style.backgroundSize,
@@ -190,28 +189,46 @@ function saveSnowman() {
     backgroundPosition: el.style.backgroundPosition
   }));
 
-  // 3) 현재 선택된 패턴/색 가져오기
-  const pattern = scarfPattern.value;      // "solid", "dot", "stripe"
+  const pattern = scarfPattern.value;      // "solid" | "dot" | "stripe"
   const color = scarfColorInput.value;     // 예: "#ff5252"
 
-  // 4) 캡처할 때만 패턴을 캔버스 이미지로 바꿔서 적용
-  if (pattern === "dot" || pattern === "stripe") {
+  // === 2. 캡처용 목도리 패턴 이미지 적용 (dot / stripe만) ===
+  if (typeof createPatternDataURL === "function" &&
+      (pattern === "dot" || pattern === "stripe")) {
+
     const dataURL = createPatternDataURL(pattern, color);
 
     parts.forEach(el => {
-      el.style.backgroundColor = color;                    // 바탕색
-      el.style.backgroundImage = `url(${dataURL})`;        // 패턴 이미지
+      el.style.backgroundColor = color;
+      el.style.backgroundImage = `url(${dataURL})`;
       el.style.backgroundRepeat = "repeat";
       el.style.backgroundSize = "20px 20px";
     });
   }
-  // pattern === "solid" 인 경우는 기존 단색 그대로라서 굳이 안 건드려도 됨
+  // pattern이 solid면 그대로 둠 (단색)
 
-  // 5) html2canvas로 캡처
+  // === 3. 눈송이(눈 내리는 효과) 처리 ===
+  const snowflakes = Array.from(scene.querySelectorAll(".snowflake"));
+  const originalSnowStyles = snowflakes.map(el => ({
+    top: el.style.top,
+    left: el.style.left,
+    animation: el.style.animation,
+    transform: el.style.transform
+  }));
+
+  // 캡처용: 애니메이션 끄고, 화면 안에 랜덤 배치
+  snowflakes.forEach(el => {
+    el.style.animation = "none";           // animation: fall 제거
+    el.style.transform = "none";           // translateY 제거
+    el.style.top = Math.random() * 80 + "%";   // 위에서 0~80% 사이
+    el.style.left = Math.random() * 100 + "%"; // 왼쪽에서 0~100%
+  });
+
+  // === 4. 캡처 ===
   html2canvas(scene).then(canvas => {
-    // 6) 캡처 끝 → 목도리 스타일 원래대로 복구
+    // 4-1. 목도리 스타일 복구
     parts.forEach((el, idx) => {
-      const s = originalStyles[idx];
+      const s = originalScarfStyles[idx];
       el.style.backgroundColor = s.backgroundColor;
       el.style.backgroundImage = s.backgroundImage;
       el.style.backgroundSize = s.backgroundSize;
@@ -219,11 +236,20 @@ function saveSnowman() {
       el.style.backgroundPosition = s.backgroundPosition;
     });
 
-    // 7) scene 크기도 복구
+    // 4-2. 눈송이 스타일 복구 (애니메이션 포함)
+    snowflakes.forEach((el, idx) => {
+      const s = originalSnowStyles[idx];
+      el.style.top = s.top;
+      el.style.left = s.left;
+      el.style.animation = s.animation;
+      el.style.transform = s.transform;
+    });
+
+    // 4-3. scene 크기 복구
     scene.style.width = originalWidth;
     scene.style.height = originalHeight;
 
-    // 8) 이미지 다운로드
+    // 4-4. 이미지 다운로드
     const link = document.createElement("a");
     link.download = "my-snowman.png";
     link.href = canvas.toDataURL("image/png");
