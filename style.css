@@ -513,7 +513,7 @@
 
   /* 👉 눈사람을 살짝 축소해서 머리까지 다 보이게 */
   .snowman {
-    transform: scale(0.78);
+    transform: scale(0.5);
     transform-origin: bottom center;
   }
 
