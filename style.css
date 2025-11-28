@@ -498,24 +498,28 @@
 
 @media screen and (max-width: 600px) {
 
-  /* 프리뷰 박스를 더 크게 — 공간 확보 */
   .scene {
     width: 100%;
-    height: 420px;      /* 🟡 충분한 공간 확보 */
+    height: 420px;     /* 충분한 세로 공간 */
     margin: 0 auto;
     padding: 0;
 
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    overflow: hidden;
+    overflow: hidden; 
   }
 
-  /* 눈사람을 확실히 더 작게! */
+  /* 👉 눈사람 더 작게 + 위로 올림 */
   .snowman {
-    transform: scale(0.38) translateY(0px);
-    /* 🟡 scale 0.38: 이전보다 훨씬 작음
-       🟡 translateY 0px: 아래로 밀리지 않도록 */
+    transform: scale(0.34) translateY(-15px);
+    /* scale(0.34): 확실히 작은 크기
+       translateY(-15px): 눈사람을 위로 올려 위쪽 여백 제거 */
     transform-origin: bottom center;
+  }
+
+  .ground {
+    height: 65px;
+    bottom: -20px;
   }
 }
