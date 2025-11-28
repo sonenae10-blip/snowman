@@ -501,27 +501,19 @@
 
   .scene {
     width: 100%;
-    aspect-ratio: 1 / 1;     /* 정사각형 유지 */
+    aspect-ratio: 1 / 1;
     max-width: none;
     margin: 0 auto;
-
-    padding-bottom: 0;       /* 여분 여백 제거 */
+    padding-bottom: 0;
+    
     display: flex;
     justify-content: center;
-    align-items: flex-end;   /* 눈사람을 눈밭 위에 서 있게 */
+    align-items: flex-end;
   }
 
-  /* 눈사람 크기 + 위치 미세 조정 */
+  /* 👉 눈사람 크기를 더 줄여서 상하좌우 여백 확보 */
   .snowman {
-    transform: scale(0.75) translateY(6px);
-    /* 크기 조금 줄이고, 아주 살짝 아래로 밀어서
-       정사각형 안에 머리~발까지 딱 들어가도록 */
+    transform: scale(0.63) translateY(10px);
     transform-origin: bottom center;
-  }
-
-  /* 눈밭은 조금 낮게 + 살짝 얇게 */
-  .ground {
-    height: 60px;
-    bottom: -10px;
   }
 }
