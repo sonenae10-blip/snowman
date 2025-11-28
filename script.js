@@ -11,9 +11,9 @@ const hatArea = document.getElementById("hatArea");
 const scarf = document.getElementById("scarf");
 const scene = document.getElementById("scene");
 
-// === 캡처용 패턴 이미지 생성 (dot / stripe) ===
+// === 패턴용 DataURL 생성 (dot / stripe 공통 사용) ===
 function createPatternDataURL(type, color) {
-  const size = 20;              // 패턴 타일 크기
+  const size = 20; // 패턴 타일 크기
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
@@ -23,7 +23,7 @@ function createPatternDataURL(type, color) {
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, size, size);
 
-  // 2) 패턴은 흰색으로 그리기
+  // 2) 패턴은 흰색으로
   ctx.fillStyle = "#ffffff";
 
   if (type === "dot") {
@@ -86,30 +86,16 @@ function applyScarfStyle() {
   });
 
   // 2) 패턴 적용
-  if (pattern === "dot") {
-    // 큰 흰색 동글동글 도트
-    const bgImage = "radial-gradient(circle, #ffffff 0 45%, transparent 45%)";
-    const bgSize = "12px 12px";
+  if (pattern === "dot" || pattern === "stripe") {
+    const dataURL = createPatternDataURL(pattern, color);
 
     allParts.forEach(el => {
-      el.style.backgroundImage = bgImage;
-      el.style.backgroundSize = bgSize;
+      el.style.backgroundImage = `url(${dataURL})`;
       el.style.backgroundRepeat = "repeat";
-    });
-
-  } else if (pattern === "stripe") {
-    // 스트라이프: 색 → 흰색 → 색 → 흰색
-    const bgImage = `repeating-linear-gradient(
-      90deg,
-      transparent 0 10px,
-      #ffffff 10px 20px
-    )`;
-
-    allParts.forEach(el => {
-      el.style.backgroundImage = bgImage;
-      el.style.backgroundRepeat = "repeat";
+      el.style.backgroundSize = "20px 20px";
     });
   }
+  // pattern === "solid" 이면 위의 "색만" 적용된 상태 유지
 }
 
 
@@ -168,88 +154,29 @@ function randomizeSnowman() {
 }
 
 function saveSnowman() {
-  // === 0. scene 원래 크기 저장 ===
+  // 0) scene 원래 크기 저장
   const originalWidth = scene.style.width;
   const originalHeight = scene.style.height;
 
-  // 캡처용 정사각형 강제 적용
+  // 1) 캡처용 정사각형 강제 적용
   scene.style.width = "500px";
   scene.style.height = "500px";
 
-  // === 1. 목도리 요소 및 원래 스타일 저장 ===
-  const main = scarf.querySelector(".scarf-main");
-  const tails = scarf.querySelectorAll(".scarf-tail");
-  const parts = [main, ...tails];
+  // 2) 캡처용 고정 눈 레이어 추가
+  const captureLayer = addCaptureSnowLayer();
 
-  const originalScarfStyles = parts.map(el => ({
-    backgroundColor: el.style.backgroundColor,
-    backgroundImage: el.style.backgroundImage,
-    backgroundSize: el.style.backgroundSize,
-    backgroundRepeat: el.style.backgroundRepeat,
-    backgroundPosition: el.style.backgroundPosition
-  }));
-
-  const pattern = scarfPattern.value;      // "solid" | "dot" | "stripe"
-  const color = scarfColorInput.value;     // 예: "#ff5252"
-
-  // === 2. 캡처용 목도리 패턴 이미지 적용 (dot / stripe만) ===
-  if (typeof createPatternDataURL === "function" &&
-      (pattern === "dot" || pattern === "stripe")) {
-
-    const dataURL = createPatternDataURL(pattern, color);
-
-    parts.forEach(el => {
-      el.style.backgroundColor = color;
-      el.style.backgroundImage = `url(${dataURL})`;
-      el.style.backgroundRepeat = "repeat";
-      el.style.backgroundSize = "20px 20px";
-    });
-  }
-  // pattern이 solid면 그대로 둠 (단색)
-
-  // === 3. 눈송이(눈 내리는 효과) 처리 ===
-  const snowflakes = Array.from(scene.querySelectorAll(".snowflake"));
-  const originalSnowStyles = snowflakes.map(el => ({
-    top: el.style.top,
-    left: el.style.left,
-    animation: el.style.animation,
-    transform: el.style.transform
-  }));
-
-  // 캡처용: 애니메이션 끄고, 화면 안에 랜덤 배치
-  snowflakes.forEach(el => {
-    el.style.animation = "none";           // animation: fall 제거
-    el.style.transform = "none";           // translateY 제거
-    el.style.top = Math.random() * 80 + "%";   // 위에서 0~80% 사이
-    el.style.left = Math.random() * 100 + "%"; // 왼쪽에서 0~100%
-  });
-
-  // === 4. 캡처 ===
+  // 3) html2canvas로 캡처
   html2canvas(scene).then(canvas => {
-    // 4-1. 목도리 스타일 복구
-    parts.forEach((el, idx) => {
-      const s = originalScarfStyles[idx];
-      el.style.backgroundColor = s.backgroundColor;
-      el.style.backgroundImage = s.backgroundImage;
-      el.style.backgroundSize = s.backgroundSize;
-      el.style.backgroundRepeat = s.backgroundRepeat;
-      el.style.backgroundPosition = s.backgroundPosition;
-    });
+    // 4) 캡처 끝나면 레이어 제거
+    if (captureLayer && captureLayer.parentNode) {
+      captureLayer.parentNode.removeChild(captureLayer);
+    }
 
-    // 4-2. 눈송이 스타일 복구 (애니메이션 포함)
-    snowflakes.forEach((el, idx) => {
-      const s = originalSnowStyles[idx];
-      el.style.top = s.top;
-      el.style.left = s.left;
-      el.style.animation = s.animation;
-      el.style.transform = s.transform;
-    });
-
-    // 4-3. scene 크기 복구
+    // 5) scene 크기 복구
     scene.style.width = originalWidth;
     scene.style.height = originalHeight;
 
-    // 4-4. 이미지 다운로드
+    // 6) 이미지 다운로드
     const link = document.createElement("a");
     link.download = "my-snowman.png";
     link.href = canvas.toDataURL("image/png");
@@ -292,3 +219,29 @@ scarfPattern.addEventListener("change", updateScarfPattern);
 // === 초기 실행 ===
 applyAll();
 createSnowflakes();
+
+// === 캡처용 고정 눈 레이어 추가 ===
+function addCaptureSnowLayer() {
+  const layer = document.createElement("div");
+  layer.className = "capture-snow-layer";
+  layer.style.position = "absolute";
+  layer.style.inset = "0";
+  layer.style.pointerEvents = "none";
+  layer.style.zIndex = "1"; // 눈사람(z-index:2)보다 아래, 배경/눈송이보단 위
+
+  // 랜덤 점 여러 개 생성
+  const count = 60;
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement("div");
+    dot.style.position = "absolute";
+    dot.style.width = dot.style.height = (2 + Math.random() * 4) + "px";
+    dot.style.borderRadius = "50%";
+    dot.style.background = "rgba(255,255,255," + (0.6 + Math.random() * 0.4) + ")";
+    dot.style.left = Math.random() * 100 + "%";
+    dot.style.top = Math.random() * 100 + "%";
+    layer.appendChild(dot);
+  }
+
+  scene.appendChild(layer);
+  return layer;
+}
