@@ -139,10 +139,21 @@ function randomizeSnowman() {
   applyAll();
 }
 
-
-// === 저장하기 (PNG) ===
 function saveSnowman() {
+
+  // 원래 스타일 저장
+  const originalWidth = scene.style.width;
+  const originalHeight = scene.style.height;
+
+  // 1) 정사각형 강제 적용
+  scene.style.width = "500px";
+  scene.style.height = "500px";
+
   html2canvas(scene).then(canvas => {
+    // 2) 원래 크기로 복구
+    scene.style.width = originalWidth;
+    scene.style.height = originalHeight;
+
     const link = document.createElement("a");
     link.download = "my-snowman.png";
     link.href = canvas.toDataURL("image/png");

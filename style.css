@@ -1,522 +1,522 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: linear-gradient(#4b79a1, #283e51);
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(#4b79a1, #283e51);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.app {
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 768px) {
   .app {
-    width: 100%;
-    max-width: 1000px;
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 24px;
-    padding: 24px;
-    display: grid;
-    grid-template-columns: 1.1fr 1.4fr;
-    gap: 24px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    grid-template-columns: 1fr;
   }
-  
-  @media (max-width: 768px) {
-    .app {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-  }
-  
-  .subtitle {
-    font-size: 0.9rem;
-    opacity: 0.9;
-    margin-bottom: 16px;
-  }
-  
-  /* 컨트롤 영역 */
-  .controls {
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 18px;
-    padding: 18px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .control-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .control-label {
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-  
-  select,
-  input[type="color"],
-  button {
-    border-radius: 999px;
-    border: none;
-    padding: 8px 14px;
-    font-size: 0.9rem;
-    font-family: inherit;
-  }
-  
-  select,
-  input[type="color"] {
-    outline: none;
-  }
-  
-  input[type="color"] {
-    padding: 1px;
-    cursor: pointer;
-  }
-  
-  button {
-    cursor: pointer;
-    font-weight: 600;
-    background: #ffe082;
-    color: #333;
-    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.1s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    margin-top: 4px;
-  }
-  
-  button:hover {
-    background: #ffecb3;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-  }
-  
-  button:active {
-    transform: translateY(0);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* 미리보기 영역 */
-  .preview-wrapper {
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.28), transparent 55%);
-    border-radius: 18px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  
-  .preview-title {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  
-  .scene {
-    border-radius: 16px;
-    background: linear-gradient(to top, #e0f7fa 0%, #f5fbff 50%, #e3f2fd 100%);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-  
-    width: 100%;
-    max-width: 500px;
-    aspect-ratio: 1 / 1; /* 정사각형 */
-    margin: 0 auto;
-    padding-bottom: 40px;
-  }
-  
-  .ground {
-    position: absolute;
-    bottom: -10px;
-    left: -20%;
-    right: -20%;
-    height: 90px;
-    background: #ffffff;
-    border-radius: 50% 50% 0 0;
-    box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.12);
-  }
-  
-  /* 눈송이 */
-  .snowflake {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0.9;
-    animation: fall 10s linear infinite;
-  }
-  
-  @keyframes fall {
-    0% {
-      transform: translateY(-10px);
-    }
-    100% {
-      transform: translateY(120vh);
-    }
-  }
-  
-  /* 눈사람 기본 */
-  .snowman {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0px;
-    z-index: 2;
-  }
-  
-  .snowman.medium {
-    transform: scale(1);
-  }
-  
-  .snow-ball {
-    background: #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px rgba(200, 225, 255, 0.6),
-      0 12px 12px rgba(0, 0, 0, 0.15);
-    position: relative;
-  }
-  
-  .snow-ball.bottom {
-    width: 160px;
-    height: 160px;
-    margin-top: -25px;
-  }
-  
-  .snow-ball.middle {
-    width: 120px;
-    height: 120px;
-    margin-top: -5px;
-    z-index: 1;
-  }
-  
-  .snow-ball.head {
-    width: 90px;
-    height: 90px;
-    margin-top: 0px;
-    z-index: 2;
-  }
-  
-  /* 얼굴 */
-  .eyes {
-    position: absolute;
-    top: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 16px;
-  }
-  
-  .eye {
-    width: 10px;
-    height: 10px;
-    background: #222;
-    border-radius: 50%;
-  }
-  
-  .mouth {
-    position: absolute;
-    top: 52px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 4px;
-  }
-  
-  .mouth-dot {
-    width: 5px;
-    height: 5px;
-    background: #333;
-    border-radius: 50%;
-  }
-  
-  .carrot-nose {
-    position: absolute;
-    top: 42px;
-    left: 50%;
-    width: 28px;
-    height: 10px;
-    background: #ff8a65;
-    border-radius: 999px;
-    transform-origin: left center;
-    transform: translateX(-5px) rotate(-3deg);
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* 단추 */
-  .buttons {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .button-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #333;
-  }
-  
-  /* 팔(나뭇가지) */
-  .arm {
-    position: absolute;
-    top: 40px;
-    width: 70px;
-    height: 4px;
-    background: #6d4c41;
-    transform-origin: center left;
-    border-radius: 999px;
-  }
-  
-  .arm.left {
-    left: -60px;
-    transform: rotate(-10deg);
-  }
-  
-  .arm.right {
-    right: -60px;
-    transform-origin: center right;
-    transform: rotate(10deg);
-  }
-  
-  /* 모자 스타일 */
-  .hat {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translate(-50%, 12px);
-  }
-  
-  .hat-none {
-    display: none;
-  }
-  
-  .hat-classic {
-    width: 70px;
-    height: 40px;
-    background: #212121;
-    border-radius: 6px 6px 10px 10px;
-    position: relative;
-  }
-  
-  .hat-classic::before {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: -10px;
-    right: -10px;
-    height: 8px;
-    background: #212121;
-    border-radius: 999px;
-  }
-  
-  .hat-classic::after {
-    content: "";
-    position: absolute;
-    top: 14px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    background: #e53935;
-  }
-  
-  .hat-beanie {
-    width: 70px;
-    height: 40px;
-    background: #ff7043;
-    border-radius: 40px 40px 10px 10px;
-    position: relative;
-  }
-  
-  .hat-beanie::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #ffcc80;
-    transform: translateX(-50%);
-  }
-  
-  .hat-beanie::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: -8px;
-    right: -8px;
-    height: 10px;
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.1);
-  }
-  
-  .hat-ears {
-    width: 70px;
-    height: 12px;
-    background: #5c6bc0;
-    border-radius: 999px;
-    position: relative;
-  }
-  
-  .hat-ears::before,
-  .hat-ears::after {
-    content: "";
-    position: absolute;
-    top: -18px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #5c6bc0;
-  }
-  
-  .hat-ears::before {
-    left: 0;
-  }
-  
-  .hat-ears::after {
-    right: 0;
-  }
-  
-  /* 베레모 */
-  .hat-beret {
-    width: 60px;
-    height: 22px;
-    background: #5d5bd6;
-    border-radius: 999px;
-    position: relative;
-  }
-  
-  .hat-beret::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 18px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #5d5bd6;
-  }
-  
-  /* 산타 모자 */
-  .hat-santa {
-    width: 70px;
-    height: 34px;
-    background: #e53935;
-    border-radius: 34px 34px 10px 10px;
-    position: relative;
-  }
-  
-  .hat-santa::before {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: -6px;
-    right: -6px;
-    height: 16px;
-    border-radius: 999px;
-    background: #ffffff;
-  }
-  
-  .hat-santa::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    right: 0;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #ffffff;
-  }
-  
-  .preview-footer {
-    margin-top: 8px;
-    font-size: 0.85rem;
-    opacity: 0.9;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  /* 목도리 */
-.scarf {
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 16px;
+}
+
+/* 컨트롤 영역 */
+.controls {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+select,
+input[type="color"],
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+select,
+input[type="color"] {
+  outline: none;
+}
+
+input[type="color"] {
+  padding: 1px;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 600;
+  background: #ffe082;
+  color: #333;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  margin-top: 4px;
+}
+
+button:hover {
+  background: #ffecb3;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 미리보기 영역 */
+.preview-wrapper {
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.28), transparent 55%);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.preview-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.scene {
+  border-radius: 16px;
+  background: linear-gradient(to top, #e0f7fa 0%, #f5fbff 50%, #e3f2fd 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1; /* 정사각형 */
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.ground {
   position: absolute;
-  top: 70px;
+  bottom: -10px;
+  left: -20%;
+  right: -20%;
+  height: 90px;
+  background: #ffffff;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* 눈송이 */
+.snowflake {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(120vh);
+  }
+}
+
+/* 눈사람 기본 */
+.snowman {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  z-index: 2;
+}
+
+.snowman.medium {
+  transform: scale(1);
+}
+
+.snow-ball {
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(200, 225, 255, 0.6),
+    0 12px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.snow-ball.bottom {
+  width: 160px;
+  height: 160px;
+  margin-top: -25px;
+}
+
+.snow-ball.middle {
+  width: 120px;
+  height: 120px;
+  margin-top: -5px;
+  z-index: 1;
+}
+
+.snow-ball.head {
+  width: 90px;
+  height: 90px;
+  margin-top: 0px;
+  z-index: 2;
+}
+
+/* 얼굴 */
+.eyes {
+  position: absolute;
+  top: 32px;
   left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+}
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #222;
+  border-radius: 50%;
+}
+
+.mouth {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+.mouth-dot {
+  width: 5px;
+  height: 5px;
+  background: #333;
+  border-radius: 50%;
+}
+
+.carrot-nose {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 28px;
+  height: 10px;
+  background: #ff8a65;
+  border-radius: 999px;
+  transform-origin: left center;
+  transform: translateX(-5px) rotate(-3deg);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+/* 단추 */
+.buttons {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #333;
+}
+
+/* 팔(나뭇가지) */
+.arm {
+  position: absolute;
+  top: 40px;
+  width: 70px;
+  height: 4px;
+  background: #6d4c41;
+  transform-origin: center left;
+  border-radius: 999px;
+}
+
+.arm.left {
+  left: -60px;
+  transform: rotate(-10deg);
+}
+
+.arm.right {
+  right: -60px;
+  transform-origin: center right;
+  transform: rotate(10deg);
+}
+
+/* 모자 스타일 */
+.hat {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 12px);
+}
+
+.hat-none {
+  display: none;
+}
+
+.hat-classic {
+  width: 70px;
+  height: 40px;
+  background: #212121;
+  border-radius: 6px 6px 10px 10px;
+  position: relative;
+}
+
+.hat-classic::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: -10px;
+  right: -10px;
+  height: 8px;
+  background: #212121;
+  border-radius: 999px;
+}
+
+.hat-classic::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #e53935;
+}
+
+.hat-beanie {
+  width: 70px;
+  height: 40px;
+  background: #ff7043;
+  border-radius: 40px 40px 10px 10px;
+  position: relative;
+}
+
+.hat-beanie::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffcc80;
   transform: translateX(-50%);
 }
 
-.scarf-main {
-  width: 85px;
-  height: 18px;
+.hat-beanie::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  right: -8px;
+  height: 10px;
   border-radius: 999px;
-  background-color: var(--scarf-color, #ff5252);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.hat-ears {
+  width: 70px;
+  height: 12px;
+  background: #5c6bc0;
+  border-radius: 999px;
+  position: relative;
+}
+
+.hat-ears::before,
+.hat-ears::after {
+  content: "";
+  position: absolute;
+  top: -18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #5c6bc0;
+}
+
+.hat-ears::before {
+  left: 0;
+}
+
+.hat-ears::after {
+  right: 0;
+}
+
+/* 베레모 */
+.hat-beret {
+  width: 60px;
+  height: 22px;
+  background: #5d5bd6;
+  border-radius: 999px;
+  position: relative;
+}
+
+.hat-beret::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #5d5bd6;
+}
+
+/* 산타 모자 */
+.hat-santa {
+  width: 70px;
+  height: 34px;
+  background: #e53935;
+  border-radius: 34px 34px 10px 10px;
+  position: relative;
+}
+
+.hat-santa::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: -6px;
+  right: -6px;
+  height: 16px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+.hat-santa::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.preview-footer {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 목도리 */
+.scarf {
+position: absolute;
+top: 70px;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.scarf-main {
+width: 85px;
+height: 18px;
+border-radius: 999px;
+background-color: var(--scarf-color, #ff5252);
 }
 
 .scarf-tail {
-  position: absolute;
-  top: 16px;
-  left: 10px;
-  width: 18px;
-  height: 40px;
-  border-radius: 999px;
-  background-color: var(--scarf-color, #ff5252);
+position: absolute;
+top: 16px;
+left: 10px;
+width: 18px;
+height: 40px;
+border-radius: 999px;
+background-color: var(--scarf-color, #ff5252);
 }
 
 .scarf-tail.secondary {
-  left: 24px;
-  height: 32px;
-  opacity: 0.85;
+left: 24px;
+height: 32px;
+opacity: 0.85;
 }
 
 @media screen and (max-width: 600px) {
 
-  .scene {
-    width: 100%;
-    height: 420px; 
-    margin: 0 auto;
-    padding: 0;
+.scene {
+  width: 100%;
+  height: 420px; 
+  margin: 0 auto;
+  padding: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    overflow: hidden; 
-  }
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden; 
+}
 
-  .snowman {
-    transform: scale(0.34) translateY(0px);
-    transform-origin: bottom center;
-  }
+.snowman {
+  transform: scale(0.34) translateY(0px);
+  transform-origin: bottom center;
+}
 
-  .ground {
-    height: 65px;
-    bottom: -20px;
-  }
+.ground {
+  height: 65px;
+  bottom: -20px;
+}
 }
