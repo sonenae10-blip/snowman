@@ -511,7 +511,7 @@
   }
 
   .snowman {
-    transform: scale(0.34) translateY(-25px);
+    transform: scale(0.34) translateY(0px);
     transform-origin: bottom center;
   }
 
