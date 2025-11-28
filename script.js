@@ -117,7 +117,7 @@ function updateBackground() {
 
   if (bg === "day") {
     scene.style.background =
-      "linear-gradient(to top, #e0f7fa 0%, #f5fbff 50%, #e3f2fd 100%)";
+      "linear-gradient(to top, #b3e5fc 0%, #b3e5fc 40%, #d3edfbff 100%)";
   } else if (bg === "sunset") {
     scene.style.background =
       "linear-gradient(to top, #ffcc80 0%, #ffab91 45%, #f8bbd0 100%)";
