@@ -500,7 +500,7 @@
 
   .scene {
     width: 100%;
-    height: 420px;     /* 충분한 세로 공간 */
+    height: 420px; 
     margin: 0 auto;
     padding: 0;
 
@@ -510,11 +510,8 @@
     overflow: hidden; 
   }
 
-  /* 👉 눈사람 더 작게 + 위로 올림 */
   .snowman {
-    transform: scale(0.34) translateY(-15px);
-    /* scale(0.34): 확실히 작은 크기
-       translateY(-15px): 눈사람을 위로 올려 위쪽 여백 제거 */
+    transform: scale(0.34) translateY(-25px);
     transform-origin: bottom center;
   }
 
